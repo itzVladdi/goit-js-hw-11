@@ -15,19 +15,25 @@
     <link rel="stylesheet" href="./css/common.css" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
-
-    <div class="gallery"></div>
-    <button type="button" class="load-more is-hidden">Load more</button>
-
+    <section class="input-form">
+      <div class="container">
+        <form class="search-form" id="search-form">
+          <input
+            type="text"
+            name="searchQuery"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+    <section class="search-results">
+      <div class="container">
+        <ul class="gallery"></ul>
+        <button type="button" class="load-more is-hidden">Load more</button>
+      </div>
+    </section>
     <script type="module" src="./js/index.js"></script>
   </body>
 </html>

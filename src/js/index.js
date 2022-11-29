@@ -19,7 +19,7 @@ function insertMarkup(array) {
   lightbox.refresh();
 }
 
-function onSearchFormElSubmit(event) {
+async function onSearchFormElSubmit(event) {
   event.preventDefault();
   const {
     target: {
@@ -28,6 +28,7 @@ function onSearchFormElSubmit(event) {
       },
     },
   } = event;
+  loadMoreBtn.classList.add('is-hidden');
   if (!value.trim()) {
     Notiflix.Notify.failure('Please enter something!');
     galleryEl.innerHTML = '';
@@ -38,45 +39,40 @@ function onSearchFormElSubmit(event) {
   pixabayAPI.page = 1;
   galleryEl.innerHTML = '';
 
-  pixabayAPI
-    .fetchPhotos()
-    .then(data => {
-      loadMoreBtn.classList.add('is-hidden');
-      if (data.hits.length === 0) {
-        Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-        return;
-      }
-      pixabayAPI.totalPages = Math.ceil(data.totalHits / 40);
-
-      insertMarkup(data.hits);
-      if (pixabayAPI.totalPages > pixabayAPI.page) {
-        loadMoreBtn.classList.remove('is-hidden');
-      }
-    })
-    .catch(err => console.error(err.message));
+  try {
+    const data = await pixabayAPI.fetchPhotos();
+    if (data.hits.length === 0) {
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    }
+    pixabayAPI.totalPages = Math.ceil(data.totalHits / 40);
+    insertMarkup(data.hits);
+    if (pixabayAPI.totalPages > pixabayAPI.page) {
+      loadMoreBtn.classList.remove('is-hidden');
+    }
+  } catch (error) {
+    console.error(err.message);
+  }
 }
 
 searchFormEl.addEventListener('submit', onSearchFormElSubmit);
 
-function onloadMoreBtnClick() {
+async function onloadMoreBtnClick() {
   pixabayAPI.page += 1;
-
-  pixabayAPI
-    .fetchPhotos()
-    .then(data => {
-      if (pixabayAPI.totalPages === pixabayAPI.page) {
-        loadMoreBtn.classList.add('is-hidden');
-        Notiflix.Notify.info(
-          "We're sorry, but you've reached the end of search results."
-        );
-        insertMarkup(data.hits);
-        return;
-      }
-      insertMarkup(data.hits);
-    })
-    .catch(err => console.error(err.message));
+  if (pixabayAPI.totalPages === pixabayAPI.page) {
+    loadMoreBtn.classList.add('is-hidden');
+    Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
+  try {
+    const data = await pixabayAPI.fetchPhotos();
+    insertMarkup(data.hits);
+  } catch (error) {
+    console.error(err.message);
+  }
 }
 
 loadMoreBtn.addEventListener('click', onloadMoreBtnClick);

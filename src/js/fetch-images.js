@@ -17,6 +17,7 @@ export class PixabayAPI {
         per_page: 40,
         image_type: 'photo',
         orientation: 'horizontal',
+        safesearch: true,
       },
     };
 

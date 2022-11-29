@@ -26,23 +26,16 @@ ol {
   margin-bottom: 0;
   padding-left: 0;
 }
-
 .list {
   list-style: none;
 }
+img {
+  display: block;
+  height: 100%;
+  width: 100%;
 
-.link {
-  text-decoration: none;
+  object-fit: cover;
 }
-
-.container {
-  width: 1200px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .is-hidden {
   position: absolute;
   white-space: nowrap;
@@ -56,22 +49,46 @@ ol {
   margin: -1px;
 }
 
-img {
-  height: 250px;
-  object-fit: cover;
+.input-form {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #3650c5;
+}
+.container {
+  width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.search-results {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  width: 1145px;
-
-  margin-left: auto;
-  margin-right: auto;
+  row-gap: 20px;
 }
 .photo-card {
-  width: 375px;
-  height: 290px;
+  width: 285px;
+  height: 240px;
+}
+.photo-card:hover {
+  box-shadow: 0px 1px 1px rgb(0 0 0 / 12%), 0px 4px 4px rgb(0 0 0 / 6%),
+    1px 4px 6px rgb(0 0 0 / 16%);
+}
+
+.link {
+  display: block;
+  height: 200px;
+  text-decoration: none;
 }
 
 .info {
@@ -80,10 +97,19 @@ img {
   height: 40px;
   padding-left: 5px;
   padding-right: 5px;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 
-.info-item {
+.info-text {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.load-more {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

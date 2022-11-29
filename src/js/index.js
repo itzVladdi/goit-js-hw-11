@@ -49,6 +49,7 @@ async function onSearchFormElSubmit(event) {
     }
     pixabayAPI.totalPages = Math.ceil(data.totalHits / 40);
     insertMarkup(data.hits);
+    Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     if (pixabayAPI.totalPages > pixabayAPI.page) {
       loadMoreBtn.classList.remove('is-hidden');
     }
